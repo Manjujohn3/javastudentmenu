@@ -65,7 +65,6 @@ public class Student {
                             System.out.println("rollno="+getRoll);
                             System.out.println("admno="+getAdm);
                             System.out.println("college="+getCollege+"\n");
-
                         }
 
                     }
@@ -73,9 +72,34 @@ public class Student {
                         System.out.println(e);
                     }
                         break;
+
+
                         case 3:
                             System.out.println("search student selected");
-                            break;
+                            System.out.println("Enter the admission number : ");
+                           admno = scanner.nextInt();
+                try {
+                    Class.forName("com.mysql.jdbc.Driver");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentdb","root","");
+                    String sql = "SELECT `name`, `rollnumber`, `admno`, `college` FROM `students` WHERE `admno`="+String.valueOf(admno);
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(sql);
+                    while (rs.next()){
+
+                        String getName = rs.getString("name");
+                        String getRollno = rs.getString("rollnumber");
+                        String getAdmno = rs.getString("admno");
+                        String getCollege = rs.getString("college");
+                        System.out.println("Name="+getName);
+                        System.out.println("Rollno="+getRollno);
+                        System.out.println("Admno="+getAdmno);
+                        System.out.println("college="+getCollege+"\n");
+                    }
+                }
+                catch (Exception e ){
+                    System.out.println(e);
+                }
+                break;
                         case 4:
                             System.out.println("delete student selected");
                             break;
