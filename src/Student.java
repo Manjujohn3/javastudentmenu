@@ -1,7 +1,11 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.Scanner;
 
 public class Student {
     public static void main(String[] args) {
+
 
         int choice;
 
@@ -22,7 +26,32 @@ public class Student {
             {
                 case 1:
                     System.out.println("insert student selected");
-                    break;
+
+                    System.out.println("enter the name:");
+                    String name = scanner.next();
+                    System.out.println("enter the rollno:");
+                    int rollno = scanner.nextInt();
+                    System.out.println("enter the admno:");
+                    int admno = scanner.nextInt();
+                    System.out.println("enter the college name:");
+                    String collegename = scanner.next();
+
+                    try {
+                        Class.forName("com.mysql.jdbc.Driver");
+                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentdb", "root", "");
+                        String sql = "INSERT INTO `students`(`name`, `rollnumber`, `admno`, `college`) VALUES (?,?,?,?)";
+                        PreparedStatement stmt = con.prepareStatement(sql);
+                        stmt.setString(1, name);
+                        stmt.setInt(2, rollno);
+                        stmt.setInt(3, admno);
+                        stmt.setString(4, collegename);
+                        stmt.executeUpdate();
+                    }
+                   catch (Exception e){
+            System.out.println(e);
+
+        }
+            break;
                 case 2:
                     System.out.println("select student selected");
                     break;
