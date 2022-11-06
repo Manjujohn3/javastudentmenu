@@ -44,7 +44,6 @@ public class Student {
                         stmt.executeUpdate();
                     } catch (Exception e) {
                         System.out.println(e);
-
                     }
                     break;
 
@@ -66,19 +65,17 @@ public class Student {
                             System.out.println("admno="+getAdm);
                             System.out.println("college="+getCollege+"\n");
                         }
-
                     }
                     catch (Exception e) {
                         System.out.println(e);
                     }
                         break;
 
-
-                        case 3:
+                    case 3:
                             System.out.println("search student selected");
                             System.out.println("Enter the admission number : ");
                            admno = scanner.nextInt();
-                try {
+                    try {
                     Class.forName("com.mysql.jdbc.Driver");
                     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentdb","root","");
                     String sql = "SELECT `name`, `rollnumber`, `admno`, `college` FROM `students` WHERE `admno`="+String.valueOf(admno);
@@ -95,20 +92,39 @@ public class Student {
                         System.out.println("Admno="+getAdmno);
                         System.out.println("college="+getCollege+"\n");
                     }
-                }
-                catch (Exception e ){
+                     }
+                    catch (Exception e ){
                     System.out.println(e);
                 }
                 break;
-                        case 4:
+
+                    case 4:
                             System.out.println("delete student selected");
+                            System.out.println("Enter the admission number : ");
+                            String adm = scanner.next();
+                            try {
+                                Class.forName("com.mysql.jdbc.Driver");
+                                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/studentdb","root","");
+                                String sql = "DELETE FROM `students` WHERE `admno`= " +adm;
+                                Statement stmt = con.createStatement();
+                                stmt.executeUpdate(sql);
+                                System.out.println("data deleted successfully");
+                            }
+                            catch (Exception e){
+                                System.out.println(e);
+                            }
                             break;
+
                         case 5:
                             System.out.println("update student selected");
                             break;
-                        case 6:
-                            System.exit(0);
-                            break;
+                case 6:
+                    System.out.println("Exit");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Enter correct value");
+                    break;
                     }
             }
         }
